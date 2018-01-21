@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
     <title>noxer.rnn API documentation</title>
-    <meta name="description" content="" />
+    <meta name="description" content="Learning with networks that can process sequential data." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1044,7 +1044,6 @@ table {
     <li class="set"><h3><a href="#header-functions">Functions</a></h3>
       
   <ul>
-    <li class="mono"><a href="#noxer.rnn.bad_activation">bad_activation</a></li>
     <li class="mono"><a href="#noxer.rnn.make_keras_picklable">make_keras_picklable</a></li>
   </ul>
 
@@ -1204,11 +1203,15 @@ table {
 
   <header id="section-intro">
   <h1 class="title"><span class="name">noxer.rnn</span> module</h1>
-  
+  <p>Learning with networks that can process sequential data.</p>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn" class="source">
-    <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">ClassifierMixin</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+    <div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Learning with networks that can process sequential data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">ClassifierMixin</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">,</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">FunctionTransformer</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
@@ -1356,9 +1359,6 @@ table {
     <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_predict</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">bad_activation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">3.0</span>
-
 <span class="k">class</span> <span class="nc">KerasClassifierBase</span><span class="p">(</span><span class="n">KerasNNBase</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">create_architecture</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">):</span>
@@ -1384,7 +1384,7 @@ table {
             <span class="n">x</span> <span class="o">=</span> <span class="n">ip</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;tanh&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">Activation</span><span class="p">(</span><span class="n">bad_activation</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Infeasible!&#39;</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
@@ -1549,27 +1549,6 @@ table {
   <section id="section-items">
 
     <h2 class="section-title" id="header-functions">Functions</h2>
-      
-  <div class="item">
-    <div class="name def" id="noxer.rnn.bad_activation">
-    <p>def <span class="ident">bad_activation</span>(</p><p>x)</p>
-    </div>
-    
-
-    
-  
-  <div class="source_cont">
-  <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.bad_activation', this);">Show source &equiv;</a></p>
-  <div id="source-noxer.rnn.bad_activation" class="source">
-    <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">bad_activation</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="mf">3.0</span>
-</pre></div>
-
-  </div>
-</div>
-
-  </div>
-  
       
   <div class="item">
     <div class="name def" id="noxer.rnn.make_keras_picklable">
@@ -2509,10 +2488,14 @@ component of a nested object.</p>
     <p>def <span class="ident">__init__</span>(</p><p>self, n_neurons=32, n_layers=1, lr=0.0001, beta1=0.9, beta2=0.99, batch_size=128, max_iter=128, max_patience=10000000000.0, val_fraction=0.2)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#noxer.rnn.KerasClassifierBase">KerasClassifierBase</a></code>.<code><a href="#noxer.rnn.KerasClassifierBase.__init__">__init__</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.DNNClassifier.__init__', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn.DNNClassifier.__init__" class="source">
@@ -2574,14 +2557,10 @@ component of a nested object.</p>
     <p>def <span class="ident">fit</span>(</p><p>self, X, y)</p>
     </div>
     
-    <p class="inheritance">
-     <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.fit">fit</a></code>
-    </p>
 
     
   
-    <div class="desc inherited"><p>Fit RNN model.</p>
+    <div class="desc"><p>Fit RNN model.</p>
 <h2>Parameters</h2>
 <p>X : array of array of sequences [n_samples, seq_length, n_features]</p>
 <p>y : numpy array of shape [n_samples]
@@ -2714,7 +2693,7 @@ component of a nested object.</p>
     
     <p class="inheritance">
      <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasClassifierBase">KerasClassifierBase</a></code>.<code><a href="#noxer.rnn.KerasClassifierBase.predict">predict</a></code>
+       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.predict">predict</a></code>
     </p>
 
     
@@ -2917,10 +2896,14 @@ component of a nested object.</p>
     <p>def <span class="ident">__init__</span>(</p><p>self, n_neurons=32, n_layers=1, lr=0.0001, beta1=0.9, beta2=0.99, batch_size=128, max_iter=128, max_patience=10000000000.0, val_fraction=0.2)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#noxer.rnn.KerasRegressorBase">KerasRegressorBase</a></code>.<code><a href="#noxer.rnn.KerasRegressorBase.__init__">__init__</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.DNNRegressor.__init__', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn.DNNRegressor.__init__" class="source">
@@ -3117,7 +3100,7 @@ component of a nested object.</p>
     
     <p class="inheritance">
      <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasRegressorBase">KerasRegressorBase</a></code>.<code><a href="#noxer.rnn.KerasRegressorBase.predict">predict</a></code>
+       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.predict">predict</a></code>
     </p>
 
     
@@ -3296,7 +3279,7 @@ component of a nested object.</p>
             <span class="n">x</span> <span class="o">=</span> <span class="n">ip</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">Dense</span><span class="p">(</span><span class="n">n_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;tanh&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">Activation</span><span class="p">(</span><span class="n">bad_activation</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Infeasible!&#39;</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
             <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
@@ -3337,10 +3320,14 @@ component of a nested object.</p>
     <p>def <span class="ident">__init__</span>(</p><p>self, n_neurons=32, n_layers=1, lr=0.0001, beta1=0.9, beta2=0.99, batch_size=128, max_iter=128, max_patience=10000000000.0, val_fraction=0.2)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.__init__">__init__</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.KerasClassifierBase.__init__', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn.KerasClassifierBase.__init__" class="source">
@@ -3528,10 +3515,6 @@ component of a nested object.</p>
     <p>def <span class="ident">predict</span>(</p><p>self, X)</p>
     </div>
     
-    <p class="inheritance">
-     <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.predict">predict</a></code>
-    </p>
 
     
   
@@ -4235,10 +4218,14 @@ component of a nested object.</p>
     <p>def <span class="ident">__init__</span>(</p><p>self, n_neurons=32, n_layers=1, lr=0.0001, beta1=0.9, beta2=0.99, batch_size=128, max_iter=128, max_patience=10000000000.0, val_fraction=0.2)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.__init__">__init__</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.KerasRegressorBase.__init__', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn.KerasRegressorBase.__init__" class="source">
@@ -4426,10 +4413,6 @@ component of a nested object.</p>
     <p>def <span class="ident">predict</span>(</p><p>self, X)</p>
     </div>
     
-    <p class="inheritance">
-     <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.predict">predict</a></code>
-    </p>
 
     
   
@@ -4617,10 +4600,14 @@ component of a nested object.</p>
     <p>def <span class="ident">__init__</span>(</p><p>self, n_neurons=32, n_layers=1, lr=0.0001, beta1=0.9, beta2=0.99, batch_size=128, max_iter=128, max_patience=10000000000.0, val_fraction=0.2)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#noxer.rnn.KerasClassifierBase">KerasClassifierBase</a></code>.<code><a href="#noxer.rnn.KerasClassifierBase.__init__">__init__</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.RNNClassifier.__init__', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn.RNNClassifier.__init__" class="source">
@@ -4680,14 +4667,10 @@ component of a nested object.</p>
     <p>def <span class="ident">fit</span>(</p><p>self, X, y)</p>
     </div>
     
-    <p class="inheritance">
-     <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.fit">fit</a></code>
-    </p>
 
     
   
-    <div class="desc inherited"><p>Fit RNN model.</p>
+    <div class="desc"><p>Fit RNN model.</p>
 <h2>Parameters</h2>
 <p>X : array of array of sequences [n_samples, seq_length, n_features]</p>
 <p>y : numpy array of shape [n_samples]
@@ -4820,7 +4803,7 @@ component of a nested object.</p>
     
     <p class="inheritance">
      <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasClassifierBase">KerasClassifierBase</a></code>.<code><a href="#noxer.rnn.KerasClassifierBase.predict">predict</a></code>
+       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.predict">predict</a></code>
     </p>
 
     
@@ -5023,10 +5006,14 @@ component of a nested object.</p>
     <p>def <span class="ident">__init__</span>(</p><p>self, n_neurons=32, n_layers=1, lr=0.0001, beta1=0.9, beta2=0.99, batch_size=128, max_iter=128, max_patience=10000000000.0, val_fraction=0.2)</p>
     </div>
     
+    <p class="inheritance">
+     <strong>Inheritance:</strong>
+       <code><a href="#noxer.rnn.KerasRegressorBase">KerasRegressorBase</a></code>.<code><a href="#noxer.rnn.KerasRegressorBase.__init__">__init__</a></code>
+    </p>
 
     
   
-    <div class="desc"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
+    <div class="desc inherited"><p>Initialize self.  See help(type(self)) for accurate signature.</p></div>
   <div class="source_cont">
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.rnn.RNNRegressor.__init__', this);">Show source &equiv;</a></p>
   <div id="source-noxer.rnn.RNNRegressor.__init__" class="source">
@@ -5223,7 +5210,7 @@ component of a nested object.</p>
     
     <p class="inheritance">
      <strong>Inheritance:</strong>
-       <code><a href="#noxer.rnn.KerasRegressorBase">KerasRegressorBase</a></code>.<code><a href="#noxer.rnn.KerasRegressorBase.predict">predict</a></code>
+       <code><a href="#noxer.rnn.KerasNNBase">KerasNNBase</a></code>.<code><a href="#noxer.rnn.KerasNNBase.predict">predict</a></code>
     </p>
 
     

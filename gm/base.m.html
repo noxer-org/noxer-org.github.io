@@ -4,7 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
     <title>noxer.gm.base API documentation</title>
-    <meta name="description" content="" />
+    <meta name="description" content="Interfaces and general functionality for generative
+models, such as a score function." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1072,11 +1073,17 @@ table {
 
   <header id="section-intro">
   <h1 class="title"><span class="name">noxer.gm.base</span> module</h1>
-  
+  <p>Interfaces and general functionality for generative
+models, such as a score function.</p>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.gm.base', this);">Show source &equiv;</a></p>
   <div id="source-noxer.gm.base" class="source">
-    <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+    <div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Interfaces and general functionality for generative</span>
+<span class="sd">models, such as a score function.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
 <span class="kn">from</span> <span class="nn">noxer.sequences</span> <span class="kn">import</span> <span class="n">FlattenShape</span>
 <span class="kn">from</span> <span class="nn">.metrics</span> <span class="kn">import</span> <span class="n">distribution_similarity</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>

@@ -4,7 +4,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 
     <title>noxer.gm.acgan API documentation</title>
-    <meta name="description" content="" />
+    <meta name="description" content="Implementation of ACGAN, based on
+https://github.com/znxlwm/pytorch-generative-model-collections." />
 
   <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300' rel='stylesheet' type='text/css'>
   
@@ -1164,11 +1165,17 @@ table {
 
   <header id="section-intro">
   <h1 class="title"><span class="name">noxer.gm.acgan</span> module</h1>
-  
+  <p>Implementation of ACGAN, based on
+https://github.com/znxlwm/pytorch-generative-model-collections.</p>
   
   <p class="source_link"><a href="javascript:void(0);" onclick="toggle('source-noxer.gm.acgan', this);">Show source &equiv;</a></p>
   <div id="source-noxer.gm.acgan" class="source">
-    <div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelBinarizer</span>
+    <div class="codehilite"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implementation of ACGAN, based on</span>
+<span class="sd">https://github.com/znxlwm/pytorch-generative-model-collections.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelBinarizer</span>
 
 <span class="kn">import</span> <span class="nn">torch</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -1177,7 +1184,6 @@ table {
 <span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
 <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">TensorDataset</span>
 <span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
-
 
 <span class="k">def</span> <span class="nf">initialize_weights</span><span class="p">(</span><span class="n">net</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">modules</span><span class="p">():</span>
